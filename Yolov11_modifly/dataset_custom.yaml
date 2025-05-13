@@ -1,0 +1,6 @@
+train: E:\Yolov11_modifly\train
+val: E:\Yolov11_modifly\val
+
+nc: 1
+
+names: ["price_tag"]
