@@ -64,14 +64,15 @@ def extract_yen_price(text):
 
 # Open camera
 cam = cv.VideoCapture(0)
-cam.set(cv.CAP_PROP_FRAME_HEIGHT, 360)
+cam.set(cv.CAP_PROP_FRAME_HEIGHT, 1980) # Set height to 1280
+cam.set(cv.CAP_PROP_FRAME_WIDTH, 1080) # Set width to 720
 
 # Load YOLO model
-model = YOLO('yolo11_custom.pt')
+model = YOLO('yolo11_custom.pt') 
 
 # Input currency you want to use
-currency_choice = input("Enter currency: ").upper()
-if currency_choice in data_currency.keys():
+currency_choice = input("Enter currency: ").upper() 
+if currency_choice in data_currency.keys(): # Check if the currency is in the data_currency dictionary
     pass
 else:
     currency_choice = 'AMD'
@@ -94,7 +95,7 @@ try:
                 conf = math.ceil((box.conf[0] * 100)) / 100
                 cls = int(box.cls[0])
 
-                if conf >= 0.88:
+                if conf >= 0.80:
                     cropped = img[y1:y2, x1:x2]
                     gray = cv.cvtColor(cropped, cv.COLOR_BGR2GRAY)
                     _, thresh = cv.threshold(gray, 127, 255, cv.THRESH_BINARY)
@@ -103,13 +104,13 @@ try:
                     print("[OCR]:", ocr_text)
 
                     yen_price = extract_yen_price(ocr_text)
-                    if currency_choice in data_currency:
+                    if currency_choice in data_currency: # Check if the currency is in the data_currency dictionary
                         EXCHANGE_RATE = data_currency[currency_choice] 
                         symbol = currency_choice
-                    else:
-                        currency_choice = 'USD'
+                    else: # If the currency is not in the dictionary, default to AMD
+                        currency_choice = 'AMD'
                         EXCHANGE_RATE = data_currency[currency_choice]
-                        print("Invalid currency choice. Defaulting to USD.")
+                        print("Invalid currency choice. Defaulting to AMD.")
                     
                     if yen_price and currency_choice is not None:
                         currency_price = round(yen_price * EXCHANGE_RATE, 2)
