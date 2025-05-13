@@ -110,10 +110,6 @@ But **ignores** extra product text or tax-included lines.
 
 - Works best with clear price tags in front-facing view
 - For more accurate OCR, adjust image preprocessing (thresholding, grayscale)
-- You can enhance by adding:
-  - Auto exchange rate via API
-  - Product classification
-  - Saving detection history
 
 ## 🧠 Acknowledgments
 
