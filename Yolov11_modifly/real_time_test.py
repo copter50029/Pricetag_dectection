@@ -51,7 +51,7 @@ def extract_yen_price(text):
         not_tax = re.search(r'税込', line)
         not_gram = re.search(r'g', line) # Match 'g'
         # if in line have '税込' then ignore that line
-        if match and not_tax is None:
+        if match and not_tax is None and not_gram is None:
             price_str = match.group(1).replace(',', '')
             try:
                 price = int(price_str)
